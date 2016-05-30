@@ -2,182 +2,22 @@
 <html>
 <head>
 	<title>2048</title>
-	<style>
-		mcanvas{
-			transition-property: color;}
-	</style>
+
+    <link rel="stylesheet" href="style/style.css">
+
 </head>
 
-<body background='dragon.jpg' >
+<body background='img/dragon.jpg'>
 
 
-<p><font color="white" size='10'><center>
-	Ceci est la matrice mais vous n'etes pas l'elu</center></font>
+<p style="color: white; font-size: 10px; text-align: center;">
+    Ceci est la matrice mais vous n'etes pas l'elu
 </p>
 <canvas id="mcanvas" width="1250" height="600" keyup="jeu.affichage()"></canvas>
 <p id="mapjeu"> </p>
 
-<script>
 
-
-	function puissance (nmb){
-		var counter=0;
-		if (nmb!=0){
-			do{nmb=nmb/2;
-				counter++;
-			}while(nmb!=0);
-			return counter-1075;}
-		else return 0;
-	}
-
-	var tampon;
-	var matrice=function (){
-		this.map;
-		this.deplacement= 0;
-		this.affichage= function(){
-			var c = document.getElementById("mcanvas");
-			var ctx = c.getContext("2d");
-			var pic = new Array();
-			for(var i=0;i<18;i++){
-				pic[i]=new Image();}
-			pic[0].src = '0.png';
-			pic[1].src = '2.png';
-			pic[2].src = '4.png';
-			pic[3].src = '8.png';
-			pic[4].src = '16.png';
-			pic[5].src = '32.png';
-			pic[6].src = '64.png';
-			pic[7].src = '128.png';
-			pic[8].src = '256.png';
-			pic[9].src = '512.png';
-			pic[10].src = '1024.png';
-			pic[11].src = '2048.png';
-			pic[12].src = '4096.png';
-			pic[13].src = '8192.png';
-			pic[14].src = '16384.png';
-			pic[15].src = '32768.png';
-			pic[16].src = '65536.png';
-			for(var ligne=0; ligne < 4; ligne++){
-				for(var colonne=0 ; colonne< 4;colonne++){
-					ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])],155*colonne+250,155*ligne,140,140);
-				}}
-		}
-
-		this.aleatoire=function() {
-			var test=false;
-			for(var ligne=0; ligne < 4; ligne++){
-				for(var colonne=0 ; colonne< 4;colonne++){
-					if(this.map[colonne][ligne]==0){
-						test=true;}}}
-			if(test){
-				do{
-					var ligne = Math.floor(Math.random()*4);
-					var colonne = Math.floor(Math.random()*4);
-				}while(this.map[colonne][ligne]!=0);
-				var valeur=Math.floor((Math.random()*2)+1);
-				this.map[colonne][ligne]=2*valeur;}
-		}
-	}
-
-	var jeu=new matrice();
-	jeu.map=new Array([0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]);
-	function verification (){
-		var verif=false;var fin=false;
-		for(var ligne=0; ligne < 4; ligne++){
-			for(var colonne=0 ; colonne< 4;colonne++){
-				if (colonne<3 && ligne<3){
-					if (jeu.map[colonne+1][ligne]==jeu.map[colonne][ligne]||jeu.map[colonne][ligne+1]==jeu.map[colonne][ligne]){
-						verif=true;}}
-				if (colonne>0 && ligne>0){
-					if (jeu.map[colonne][ligne-1]==jeu.map[colonne][ligne]||jeu.map[colonne-1][ligne]==jeu.map[colonne][ligne]){
-						verif=true;}}
-				if(jeu.map[colonne][ligne]==0){verif=true;}
-				if(jeu.map[colonne][ligne]==2048){
-					fin=true;
-					alert('felicitation, vous avez gagne. Vous pouvez continuer ou appuyer sur F5');}}}
-		if(!verif){
-			alert('Vous n avez plus de mouvement possible, vous avez le choix entre fermer la fenetre ou appuyer sur F5 pour recommencer');
-		}}
-	jeu.aleatoire();
-	jeu.affichage();
-
-	document.addEventListener('keyup', function(){
-		jeu.deplacement=event.keyCode;
-		if (jeu.deplacement>36 && jeu.deplacement<41){
-			if(jeu.deplacement==37){
-				for(var ligne=0 ; ligne< 4; ligne++){
-					tampon =0;
-					for(var colonne=0 ; colonne<4 ; colonne++){
-						if (jeu.map[colonne][ligne]!=0){
-							jeu.map[tampon][ligne]=jeu.map[colonne][ligne];
-							if (tampon>0){
-								if (jeu.map[tampon-1][ligne]==jeu.map[tampon][ligne]){
-									jeu.map[tampon-1][ligne]=jeu.map[tampon][ligne]*2;
-									jeu.map[tampon][ligne]=0;}
-								else tampon++;}
-							else tampon++;}}
-					for( ; tampon<4 ; tampon++){
-						jeu.map[tampon][ligne]=0;
-					}}}
-
-			if(jeu.deplacement==38){
-				for(var colonne=0 ; colonne<4 ; colonne++){
-					tampon=0;
-					for(var ligne=0 ; ligne< 4 ; ligne++){
-						if (jeu.map[colonne][ligne]!=0){
-							jeu.map[colonne][tampon]=jeu.map[colonne][ligne];
-							if (tampon>0){
-								if (jeu.map[colonne][tampon-1]==jeu.map[colonne][tampon]){
-									jeu.map[colonne][tampon-1]=jeu.map[colonne][tampon]*2;
-									jeu.map[colonne][tampon]=0;}
-								else tampon++;}
-							else tampon++;}}
-					for( ; tampon<4;tampon++){
-						jeu.map[colonne][tampon]=0;
-					}}}
-
-			if(jeu.deplacement==39){
-				for(var ligne=0 ; ligne<4 ; ligne++){
-					tampon=3;
-					for(var colonne=3 ; colonne> -1 ; colonne--){
-						if(jeu.map[colonne][ligne]!=0){
-							jeu.map[tampon][ligne]=jeu.map[colonne][ligne];
-							if (tampon<3){
-								if(jeu.map[tampon+1][ligne]==jeu.map[tampon][ligne]){
-									jeu.map[tampon+1][ligne]=jeu.map[tampon][ligne]*2;
-									jeu.map[tampon][ligne]=0;}
-								else tampon--;}
-							else tampon--;}}
-					for( ; tampon>-1;tampon--){
-						jeu.map[tampon][ligne]=0;
-					}}}
-
-			if(jeu.deplacement==40){
-				for(var colonne=0 ; colonne< 4; colonne++){
-					tampon=3;
-					for(var ligne=3 ; ligne> -1 ; ligne--){
-						if (jeu.map[colonne][ligne]!=0){
-							jeu.map[colonne][tampon]=jeu.map[colonne][ligne];
-							if (tampon<3){
-								if (jeu.map[colonne][tampon+1]==jeu.map[colonne][tampon]){
-									jeu.map[colonne][tampon+1]=jeu.map[colonne][tampon]*2;
-									jeu.map[colonne][tampon]=0;}
-								else tampon--;}
-							else tampon--;}}
-					for( ; tampon>-1;tampon--){
-						jeu.map[colonne][tampon]=0;
-					}}}
-
-			jeu.aleatoire();
-			jeu.affichage();
-			verification();
-
-		}
-
-		else alert("je vous conseille d'appuyer sur les fleches du claviers");
-	});
-</script>
-
+<script src="scripts/javas.js"></script>
 </body>
 </html>
 
