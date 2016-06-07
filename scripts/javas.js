@@ -64,12 +64,12 @@ var matrice = function () {
 var jeu = new matrice();
 jeu.map = new Array([0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]);
 
-/*windows.onload = function (){
-alert("ok"+document.documentElement.clientWidth+"\n"+document.documentElement.clientHeight);
-var canvas = document.getElementById("canvas");
-canvas.width  = document.documentElement.clientWidth;
-canvas.height = document.documentElement.clientHeight;
-}*/
+window.onload = function (){
+var canvas= document.getElementById("mcanvas");
+canvas.width= document.documentElement.clientWidth*0.9375;
+canvas.height= document.documentElement.clientHeight*0.8305;
+	jeu.affichage();
+}
 
 function verification() {
     var verif = false;
@@ -102,7 +102,7 @@ function verification() {
 
 document.addEventListener('keyup', function () {
     jeu.deplacement = event.keyCode;
-    if (jeu.deplacement > 36 && jeu.deplacement < 41) {
+    if ((jeu.deplacement > 36 && jeu.deplacement < 41) || jeu.deplacement==116) {
         if (jeu.deplacement == 37) {
             for (var ligne = 0; ligne < 4; ligne++) {
                 tampon = 0;
