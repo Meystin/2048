@@ -29,10 +29,14 @@ var matrice = function () {
         var c = document.getElementById("mcanvas");
         var ctx = c.getContext("2d");
         var pic = makeImageSrc();
+	var taille=document.documentElement.clientHeight;
+	taille=taille/4.7;
+	var espace=taille/10;
+	var centre=(document.documentElement.clientWidth/2)-(2*taille+espace);
 
         for (var ligne = 0; ligne < 4; ligne++) {
             for (var colonne = 0; colonne < 4; colonne++) {
-                ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], 155 * colonne + 250, 155 * ligne, 140, 140);
+                ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], taille * colonne+espace+ centre, taille * ligne, taille-espace, taille-espace);
             }
         }
     }
@@ -59,6 +63,14 @@ var matrice = function () {
 
 var jeu = new matrice();
 jeu.map = new Array([0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]);
+
+/*windows.onload = function (){
+alert("ok"+document.documentElement.clientWidth+"\n"+document.documentElement.clientHeight);
+var canvas = document.getElementById("canvas");
+canvas.width  = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+}*/
+
 function verification() {
     var verif = false;
     var fin = false;
@@ -87,8 +99,6 @@ function verification() {
         alert('Vous n avez plus de mouvement possible, vous avez le choix entre fermer la fenetre ou appuyer sur F5 pour recommencer');
     }
 }
-jeu.aleatoire();
-jeu.affichage();
 
 document.addEventListener('keyup', function () {
     jeu.deplacement = event.keyCode;
