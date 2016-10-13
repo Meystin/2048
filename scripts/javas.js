@@ -28,7 +28,6 @@ var matrice = function () {
     this.affichage = function () {
         var c = document.getElementById("mcanvas");
         var ctx = c.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         var pic = makeImageSrc();
 	var taille=document.documentElement.clientHeight;
 	taille=taille/4.7;
@@ -194,6 +193,7 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
+        jeu.clean();
         jeu.aleatoire();
         jeu.affichage();
         verification();
