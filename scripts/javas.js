@@ -41,7 +41,7 @@ var matrice = function () {
     }
     this.clean =function ()
 {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    c.clearRect(0, 0, canvas.width, canvas.height);
 }
 
     this.aleatoire = function () {
