@@ -1,5 +1,6 @@
 
-#mcanvas {
+mcanvas {
     transition-property: color;
+transition-duration: 5s;
 }
 

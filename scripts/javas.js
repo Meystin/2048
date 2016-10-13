@@ -28,18 +28,22 @@ var matrice = function () {
     this.affichage = function () {
         var c = document.getElementById("mcanvas");
         var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         var pic = makeImageSrc();
 	var taille=document.documentElement.clientHeight;
 	taille=taille/4.7;
 	var espace=taille/10;
 	var centre=(document.documentElement.clientWidth/2)-(2*taille+espace);
-
         for (var ligne = 0; ligne < 4; ligne++) {
             for (var colonne = 0; colonne < 4; colonne++) {
                 ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], taille * colonne+espace+ centre, taille * ligne, taille-espace, taille-espace);
             }
         }
     }
+    this.clean =function ()
+{
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
 
     this.aleatoire = function () {
         var test = false;
@@ -68,7 +72,7 @@ window.onload = function (){
 var canvas= document.getElementById("mcanvas");
 canvas.width= document.documentElement.clientWidth*0.9375;
 canvas.height= document.documentElement.clientHeight*0.8305;
-	jeu.affichage();
+jeu.affichage();
 }
 
 function verification() {
@@ -190,7 +194,6 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
-
         jeu.aleatoire();
         jeu.affichage();
         verification();
