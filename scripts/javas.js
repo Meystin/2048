@@ -69,7 +69,6 @@ window.onload = function () {
     canvas.width = document.documentElement.clientWidth * 0.9;
     canvas.height = document.documentElement.clientHeight * 0.8;
     jeu.affichage();
-    jeu.aleatoire();
     setTimeout(function () {
         deplacement({ keyCode: 116 });
         verification();
@@ -206,7 +205,7 @@ function deplacement(event) {
     }
     
     else {
-        // C'est tellement relou ça !
+        // C'est tellement relou Ã§a !
         // alert("je vous conseille d'appuyer sur les fleches du claviers");
     }
 }
