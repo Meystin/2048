@@ -28,22 +28,19 @@ var matrice = function () {
     this.affichage = function () {
         canvas = document.getElementById("mcanvas");
         ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         var pic = makeImageSrc();
-    	var taille=document.documentElement.clientHeight;
-    	taille=taille/4.7;
-    	var espace=taille/10;
-    	var centre=(document.documentElement.clientWidth/2)-(2*taille+espace);
+        var taille = document.documentElement.clientHeight;
+        taille = taille / 4.7;
+        var espace = taille / 10;
+        var centre = (document.documentElement.clientWidth / 2) - (2 * taille + espace);
         for (var ligne = 0; ligne < 4; ligne++) {
             for (var colonne = 0; colonne < 4; colonne++) {
-                ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], taille * colonne+espace+ centre, taille * ligne, taille-espace, taille-espace);
+                ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], taille * colonne + espace + centre, taille * ligne, taille - espace, taille - espace);
             }
         }
-    }
-    this.clean = function ()
-    {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
+    };
+    
     this.aleatoire = function () {
         var test = false;
         for (var ligne = 0; ligne < 4; ligne++) {
@@ -55,24 +52,29 @@ var matrice = function () {
         }
         if (test) {
             do {
-                var ligne = Math.floor(Math.random() * 4);
-                var colonne = Math.floor(Math.random() * 4);
+                ligne = Math.floor(Math.random() * 4);
+                colonne = Math.floor(Math.random() * 4);
             } while (this.map[colonne][ligne] != 0);
             var valeur = Math.floor((Math.random() * 2) + 1);
             this.map[colonne][ligne] = 2 * valeur;
         }
     }
-}
+};
 
 var jeu = new matrice();
-jeu.map = new Array([0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]);
+jeu.map = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 
-window.onload = function (){
-var canvas= document.getElementById("mcanvas");
-canvas.width= document.documentElement.clientWidth*0.9375;
-canvas.height= document.documentElement.clientHeight*0.8305;
-jeu.affichage();
-}
+window.onload = function () {
+    canvas = document.getElementById("mcanvas");
+    canvas.width = document.documentElement.clientWidth * 0.9;
+    canvas.height = document.documentElement.clientHeight * 0.8;
+    jeu.affichage();
+    jeu.aleatoire();
+    setTimeout(function () {
+        deplacement({ keyCode: 116 });
+        verification();
+    }, 10);
+};
 
 function verification() {
     var verif = false;
@@ -103,9 +105,13 @@ function verification() {
     }
 }
 
-document.addEventListener('keyup', function () {
+
+
+document.addEventListener('keyup', deplacement);
+
+function deplacement(event) {
     jeu.deplacement = event.keyCode;
-    if ((jeu.deplacement > 36 && jeu.deplacement < 41) || jeu.deplacement==116) {
+    if ((jeu.deplacement > 36 && jeu.deplacement < 41) || jeu.deplacement == 116) {
         if (jeu.deplacement == 37) {
             for (var ligne = 0; ligne < 4; ligne++) {
                 tampon = 0;
@@ -127,7 +133,7 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
-
+        
         if (jeu.deplacement == 38) {
             for (var colonne = 0; colonne < 4; colonne++) {
                 tampon = 0;
@@ -149,7 +155,7 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
-
+        
         if (jeu.deplacement == 39) {
             for (var ligne = 0; ligne < 4; ligne++) {
                 tampon = 3;
@@ -171,7 +177,7 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
-
+        
         if (jeu.deplacement == 40) {
             for (var colonne = 0; colonne < 4; colonne++) {
                 tampon = 3;
@@ -193,12 +199,14 @@ document.addEventListener('keyup', function () {
                 }
             }
         }
-        jeu.clean();
         jeu.aleatoire();
         jeu.affichage();
         verification();
-
+        
     }
-
-    else alert("je vous conseille d'appuyer sur les fleches du claviers");
-});
+    
+    else {
+        // C'est tellement relou ça !
+        // alert("je vous conseille d'appuyer sur les fleches du claviers");
+    }
+}
