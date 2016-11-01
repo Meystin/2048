@@ -22,27 +22,27 @@ function makeImageSrc() {
     return pic;
 }
 
-var tampon;
+var tampon, canvas, ctx;
 var matrice = function () {
     this.deplacement = 0;
     this.affichage = function () {
-        var c = document.getElementById("mcanvas");
-        var ctx = c.getContext("2d");
+        canvas = document.getElementById("mcanvas");
+        ctx = canvas.getContext("2d");
         var pic = makeImageSrc();
-	var taille=document.documentElement.clientHeight;
-	taille=taille/4.7;
-	var espace=taille/10;
-	var centre=(document.documentElement.clientWidth/2)-(2*taille+espace);
+    	var taille=document.documentElement.clientHeight;
+    	taille=taille/4.7;
+    	var espace=taille/10;
+    	var centre=(document.documentElement.clientWidth/2)-(2*taille+espace);
         for (var ligne = 0; ligne < 4; ligne++) {
             for (var colonne = 0; colonne < 4; colonne++) {
                 ctx.drawImage(pic[puissance(jeu.map[colonne][ligne])], taille * colonne+espace+ centre, taille * ligne, taille-espace, taille-espace);
             }
         }
     }
-    this.clean =function ()
-{
-    c.clearRect(0, 0, canvas.width, canvas.height);
-}
+    this.clean = function ()
+    {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
     this.aleatoire = function () {
         var test = false;
