@@ -71,7 +71,6 @@ window.onload = function () {
     jeu.affichage();
     setTimeout(function () {
         deplacement({ keyCode: 116 });
-        verification();
     }, 10);
 };
 
