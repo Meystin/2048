@@ -9,6 +9,14 @@ function puissance(nmb) {
     }
     else return 0;
 }
+function init(){
+jeu.map = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+setTimeout(function () {
+        deplacement({ keyCode: 116 });
+    }, 10);
+jeu.aleatoire;
+jeu.affichage;
+}
 
 function makeImageSrc() {
     var pic = [];
@@ -67,7 +75,7 @@ jeu.map = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 window.onload = function () {
     canvas = document.getElementById("mcanvas");
     canvas.width = document.documentElement.clientWidth * 0.9;
-    canvas.height = document.documentElement.clientHeight * 0.8;
+    canvas.height = document.documentElement.clientHeight * 0.9;
     jeu.affichage();
     setTimeout(function () {
         deplacement({ keyCode: 116 });
