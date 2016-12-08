@@ -212,7 +212,10 @@ function deplacement(event) {
     }
     
     else {
-        // C'est tellement relou ça !
-        // alert("je vous conseille d'appuyer sur les fleches du claviers");
+        document.getElementById('erreur').innerHTML="je vous conseille d'appuyer sur les fleches du claviers";
+        setTimeout(function ()
+        {
+            document.getElementById('erreur').innerHTML="";
+        }, 10000);
     }
 }
